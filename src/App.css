@@ -5,6 +5,8 @@
     align-items: center;
 }
 .App-body{
+    display: flex;
     padding: 1%;
     width: 100%;
+    gap: 1%;
 }

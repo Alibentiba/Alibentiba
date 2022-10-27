@@ -1,0 +1,23 @@
+.InputOption{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    padding: 8px;
+}
+.InputOptionIcon{
+width: 27px;
+height: 27px;
+
+
+}
+.InputOption>h4{
+    padding-top: 10px;
+    color: rgb(118, 118, 117);
+}
+.InputOption:hover{
+    background-color: rgb(240, 238, 238);
+}
