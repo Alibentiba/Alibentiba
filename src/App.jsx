@@ -3,18 +3,24 @@ import Header from './header/Header'
 import Sidebar from './Sidebar/Sidebar'
 import './App.css'
 import Feed from './Feed/Feed'
+import {useSelector} from 'react-redux'
+import Login from './Login/Login'
 
 
 function App() {
-  
+  const user1 =useSelector(state=>state.user)
     return (
       <div className='App'>
+         <Header/>
 
-  <Header/>
+{/* {!user1? (<Login/>) :( */}
   <div className="App-body">
-  <Sidebar/>
-  <Feed/>
+   <Sidebar/>
+   <Feed/>
   </div>
+  {/* )  */}
+  {/* } */}
+  
 </div>
      
  )}

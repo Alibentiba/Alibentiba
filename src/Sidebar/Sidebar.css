@@ -86,7 +86,7 @@ border-bottom: 1px solid rgb(218, 214, 214);
 }
 
 .sidebar-item>p{   
-     padding-top: 6%;
+    padding:5%;
     font-size: 20px;
     color: black;
 }
@@ -113,6 +113,7 @@ border-bottom: 1px solid rgb(218, 214, 214);
 }
 .sidbar-botoom{
     background-color: rgb(255, 255, 255);
+    padding: 10px;
     border-radius: 10px;
 }
 .recent-items>p{

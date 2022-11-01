@@ -56,7 +56,7 @@ padding: 10px;
 outline: none;
 }
 .FeedForm>button{
-    display: block;
+    display:none;
 }
 .FaRegEdit{
     width: 30px;

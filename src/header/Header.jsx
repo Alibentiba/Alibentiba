@@ -16,7 +16,7 @@ const Header = () => {
             <img src="https://play-lh.googleusercontent.com/kMofEFLjobZy_bCuaiDogzBcUT-dz3BBbOrIEjJ-hqOabjK8ieuevGe6wlTD15QzOqw" alt="" />
             <div className="header-search">
               <AiOutlineSearch/>
-                <input type="text"/>
+                <input placeholder='Search' type="text"/>
             </div>
 
         </div>

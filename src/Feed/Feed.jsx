@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react'
 import {FaRegEdit} from 'react-icons/fa'
 import InputOption from '../InputOption/InputOption'
@@ -9,48 +11,41 @@ import Post from '../Post/Post'
 import { useEffect } from 'react'
 import db from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
-
-
+import { updateDoc, serverTimestamp } from "firebase/firestore";
 const Feed = () => {
   const colRef= collection(db,'posts')
   const [input,setinput]=useState('')
 const [posts,setpost]=useState([])
 useEffect(()=>{
-  getDocs(colRef).then((snap)=>{setpost(snap.docs.map((doc)=>({
+getDocs(colRef).then((snap)=>{setpost(snap.docs.map((doc)=>(
+{
       id:doc.id,
       data:doc.data(),})))})
+
+      
 },[])
-console.log(posts)
-
-
+   
 const sendpost=(e)=>{
-  e.preventDefault()
-
-  setpost([...{
-    name:"Ali bentiba",
-    descreption:'Hi im new her',
-    message:input}])
-  
-  
-
+  e.preventDefault();
  addDoc(collection(db,"posts"),{
     name:"Ali bentiba",
     descreption:'Hi im new her',
+    photoUrl:'',
     message:input,
-  
-
-})}
+    time:serverTimestamp()})
+    setinput('')
+}
 
 
   return (
     <div className='Feed'>
         <div className="FeedInputContainer">
         <div className="FeedInputContainer-top">
-        <img src={avatar} alt='avatar' className='' />
+        <img src={avatar} alt='avatar' className=''/>
            <div className="FeedInput">
             <FaRegEdit className='FaRegEdit'/>
             <form action="" className='FeedForm'>
-            <input value={input} onChange={e=>setinput(e.target.value)} type="text" placeholder='Start a Post' />
+            <input onChange={e=>setinput(e.target.value)} value={input} type="text" placeholder='Start a Post' />
             <button type='submit' onClick={sendpost}>Send</button>
              </form>
            </div>
@@ -65,7 +60,9 @@ const sendpost=(e)=>{
 
 
         </div>
-        <div className="Posts">
+         
+         
+          <div className="Posts">
            {posts.map(({id,data:{name,descreption,photoUrl,message}})=>(
            <Post 
            key={id}
@@ -74,10 +71,12 @@ const sendpost=(e)=>{
            message={message}
           />
           ))
-            }
-
-
+            }   
+            
         </div>
+        
+        
+        
     </div>
   )}
 

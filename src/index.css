@@ -16,7 +16,7 @@
   --large-screen-width: 1170px;
   --small-screen-width: 90vw;
   --fixed-width: 50rem;
-  background: #fff;
+  background: rgb(237, 237, 237);
 }
 * {
   margin: 0;

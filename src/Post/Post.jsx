@@ -1,7 +1,6 @@
 import React from 'react'
 import './Post.css'
 import InputOption from '../InputOption/InputOption'
-import avatar from '../header/avatar.jpg'
 import {SlLike} from 'react-icons/sl'
 import {TfiCommentAlt} from 'react-icons/tfi'
 import {VscLiveShare} from 'react-icons/vsc'
@@ -22,17 +21,12 @@ const Post = ({name,descreption,photoUrl,message}) => {
          <p>{message}</p>
         </div>
         <div className="Post-reaction">
-        <InputOption Icon={SlLike} title='Like' color='rgb(118, 118, 117)' />
+            <InputOption Icon={SlLike} title='Like' color='rgb(118, 118, 117)' />
             <InputOption Icon={TfiCommentAlt} title='comment' color='rgb(118, 118, 117)' />
             <InputOption Icon={VscLiveShare} title='Share' color='rgb(118, 118, 117)' />
             <InputOption Icon={RiSendPlaneFill} title='Send' color='rgb(118, 118, 117)'/>
             
         </div>
-        
-
-
-
-
     </div>
   )
 }
