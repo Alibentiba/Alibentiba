@@ -69,8 +69,7 @@ const sendpost=(e)=>{
            name={name} descreption={descreption}
            photoUrl={avatar} 
            message={message}
-          />
-          ))
+          />))
             }   
             
         </div>

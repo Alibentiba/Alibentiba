@@ -2,9 +2,8 @@ import React from 'react'
 import './Login.css'
 import LinkedinLogin from './LinkedinLogin.png'
 import { useState } from 'react'
-import auth from '../firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useSelector, useDispatch } from 'react-redux'
+import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile  } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
 import {LoginA} from '../Re/Slice'
 const Login = () => {
     const dispatch = useDispatch()
@@ -12,29 +11,42 @@ const Login = () => {
     const [Email,setEmail]=useState('')
     const [Password,setPassword]=useState('')
     const [PhotoUrl,setphotoUrl]=useState('')
-    const auth = getAuth();
+const auth = getAuth();
 
-
-
-    const Register=()=>{
-        if(!Name){alert('pls input username')}
-
-        
-
-     
-createUserWithEmailAndPassword(auth).then((userCredential) => {
-const user1 = userCredential.user
-user1.displayName=Name
-user1.photoURL=PhotoUrl
-dispatch(LoginA({
-    email:Email,
-    name:user1.displayName,
-    photo:user1.photoURL, 
-  }))
-})}
+const LogintoApp=(e)=>{
+ e.preventDefault()
+signInWithEmailAndPassword(auth, Email, Password)
+  .then((userCredential) =>{dispatch(LoginA({
+   Email:userCredential.user.email,
+   uid:userCredential.user.uid,
+   displayName:userCredential.user.displayName,
+   PhotoUrl:userCredential.user.photoURL
+  }))} )}
   
-const LoginApp=(e)=>{
-        e.preventDefault()}
+
+const Register=()=>{
+if(!Name){alert('pls input username')}
+const user=auth.currentUser
+ createUserWithEmailAndPassword(auth,Email,Password)
+ updateProfile(auth.currentUser,{
+  displayName:Name, 
+  photoURL:PhotoUrl,
+  email:Email,
+  Password:Password
+}
+)
+dispatch(LoginA({
+email:user.email,
+displayName:user.displayName,
+uid:user.uid,
+photo:user.photoURL
+}))
+console.log(auth.currentUser)
+}
+
+  
+
+       
 
   return (
     <div className='Login'>
@@ -44,7 +56,7 @@ const LoginApp=(e)=>{
       <input type="text" value={PhotoUrl} onChange={e=>{setphotoUrl(e.target.value)}} placeholder='profil pic'/>
       <input type="text" value={Email}  onChange={e=>{setEmail(e.target.value)}}  placeholder='Email' />
       <input type="text" value={Password}  onChange={e=>{setPassword(e.target.value)}} placeholder='password' />
-      <button type='Submit' onClick={LoginApp}>Submit</button>
+      <button type='Submit' onClick={LogintoApp}>Submit</button>
 
 
 

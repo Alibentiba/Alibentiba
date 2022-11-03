@@ -5,10 +5,15 @@ import { AiOutlineSearch,AiFillMessage } from 'react-icons/ai';
 import avatar from './avatar.jpg'
 import { MdGroup,MdBusinessCenter} from 'react-icons/md';
 import HeaderOption from '../HeaderOptions/HeaderOption'
-import FaAngleDown from 'react-icons/fa'
+import { useDispatch } from 'react-redux';
+import { Logout } from '../Re/Slice';
 
 
 const Header = () => {
+const dispatch=useDispatch()
+const logoutApp=()=>{
+dispatch(Logout())
+}
   return (
     <div className='header'>
 
@@ -28,7 +33,7 @@ const Header = () => {
   <HeaderOption Icon={MdBusinessCenter} title='Jobs'/>
   <HeaderOption Icon={AiFillMessage} title='Messaging'/>
   <HeaderOption Icon={IoMdNotifications} title='Notifications'/>
-  <HeaderOption avatar={avatar} title='Me'/>
+  <HeaderOption avatar={avatar} title='Me' Click={logoutApp}/>
 
 
 </div>
