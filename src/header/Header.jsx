@@ -5,15 +5,12 @@ import { AiOutlineSearch,AiFillMessage } from 'react-icons/ai';
 import avatar from './avatar.jpg'
 import { MdGroup,MdBusinessCenter} from 'react-icons/md';
 import HeaderOption from '../HeaderOptions/HeaderOption'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Logout } from '../Re/Slice';
-
-
 const Header = () => {
 const dispatch=useDispatch()
-const logoutApp=()=>{
-dispatch(Logout())
-}
+const logoutApp=()=>{dispatch(Logout())}
+const user1=useSelector(state=>state.userstore.user)
   return (
     <div className='header'>
 

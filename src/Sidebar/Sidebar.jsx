@@ -2,10 +2,12 @@ import React from 'react'
 import avatar from '../header/avatar.jpg'
 import './Sidebar.css'
 import dev from './dev.jpg'
-import { FaDiceTwo ,FaBookmark} from "react-icons/fa";
+import {FaBookmark} from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 
 const Sidebar = () => {
+const user1=useSelector(state=>state.userstore.user)
     const recent=(topic)=>{
      return(<div className="recent-item">
           <span className="item">
@@ -18,8 +20,8 @@ const Sidebar = () => {
     <div className='sidebar'>
         <div className="sidebar-top">
             <img src={dev} alt="dev"  className='dev-image'/>
-            <img src={avatar} alt="avatar" className='img-avatar'/>
-           <h4>Ali Bentiba</h4>
+            <img  src={user1?.PhotoUrl}alt="avatar" className='img-avatar'/>
+           <h4>{user1?.displayName}</h4>
            <p>Front-End Developer |<br/> JavaScript | React </p>
        
         <div className="sidebar-stats">

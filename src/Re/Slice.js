@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const Slice = createSlice({
     name: "counter",
-    initialState: {feeds:[],user:null},
+    initialState: {feeds:[],user:{email:'',uid:'',displayName:'',PhotoUrl:''}},
    
     reducers: {
           LoginA: (state,action) => {

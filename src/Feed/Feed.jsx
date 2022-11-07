@@ -11,7 +11,7 @@ import Post from '../Post/Post'
 import { useEffect } from 'react'
 import db from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
-import { updateDoc, serverTimestamp } from "firebase/firestore";
+import {serverTimestamp } from "firebase/firestore";
 const Feed = () => {
   const colRef= collection(db,'posts')
   const [input,setinput]=useState('')
@@ -20,9 +20,7 @@ useEffect(()=>{
 getDocs(colRef).then((snap)=>{setpost(snap.docs.map((doc)=>(
 {
       id:doc.id,
-      data:doc.data(),})))})
-
-      
+      data:doc.data(),})))}) 
 },[])
    
 const sendpost=(e)=>{
