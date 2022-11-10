@@ -1,27 +1,36 @@
 
 
 import React, { useState } from 'react'
-import {FaRegEdit} from 'react-icons/fa'
+import {FaEthereum, FaRegEdit} from 'react-icons/fa'
 import InputOption from '../InputOption/InputOption'
-import {BsFillImageFill,BsFillCalendarEventFill} from 'react-icons/bs'
+import {BsFillImageFill,BsFillCalendarEventFill, BsXCircle} from 'react-icons/bs'
 import {RiVideoLine,RiArticleFill} from 'react-icons/ri'
 import avatar from '../header/avatar.jpg'
 import './Feed.css'
+import {fetchTostat, sendpostostate } from '../Re/Slice'
 import Post from '../Post/Post'
 import { useEffect } from 'react'
 import db from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
 import {serverTimestamp } from "firebase/firestore";
+import { useDispatch } from 'react-redux'
+import App from '../App'
 const Feed = () => {
+const dispatch =useDispatch()
   const colRef= collection(db,'posts')
   const [input,setinput]=useState('')
-const [posts,setpost]=useState([])
+const [posts,setposts]=useState([])
+
+
+
 useEffect(()=>{
-getDocs(colRef).then((snap)=>{setpost(snap.docs.map((doc)=>(
-{
-      id:doc.id,
-      data:doc.data(),})))}) 
-},[])
+getDocs(colRef).then((snap)=>{setposts(snap.docs.map((doc)=>(
+{id:doc.id,
+data:doc.data()})))
+    })
+},[input])
+    console.log('posts is ',posts);
+   dispatch(fetchTostat(posts))
    
 const sendpost=(e)=>{
   e.preventDefault();
@@ -30,8 +39,9 @@ const sendpost=(e)=>{
     descreption:'Hi im new her',
     photoUrl:'',
     message:input,
-    time:serverTimestamp()})
+   })
     setinput('')
+  
 }
 
 
@@ -61,7 +71,7 @@ const sendpost=(e)=>{
          
          
           <div className="Posts">
-           {posts.map(({id,data:{name,descreption,photoUrl,message}})=>(
+           {posts?.map(({id,data:{name,descreption,photoUrl,message}})=>(
            <Post 
            key={id}
            name={name} descreption={descreption}

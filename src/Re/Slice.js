@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const Slice = createSlice({
+
     name: "counter",
     initialState: {feeds:[],user:{email:'',uid:'',displayName:'',PhotoUrl:''}},
    
@@ -10,14 +11,17 @@ export const Slice = createSlice({
           },
           Logout:(state) => {
             state.user=null;
+          
            
              },
              fetchTostat: (state, action) => {
             state.feeds= action.payload
            },
            sendpostostate:(state, action) => {
-            // state.feeds= [...action.payload]
-            state.feeds=state.feeds.push(action.payload)
+           let x=state.feeds
+            // state.feeds= [...state,action.payload]
+            state.feeds=x.push(action.payload)
+            // return state.feeds
            },
           
 

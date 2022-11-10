@@ -5,24 +5,30 @@ import './App.css'
 import Feed from './Feed/Feed'
 import Login from './Login/Login'
 import { useState,useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 
 function App() {
-     const [user11,setuser11]=useState({})
+const [user1,setuser]=useState(null)
 
-useEffect(()=>{
- setuser11(localStorage.getItem('localuser'))
-},[])
+useEffect(() => {
+    const user2 =JSON.parse(localStorage.getItem('user2'));
+   if (user2) {
+   setuser(user2);}
+ 
+},[]);
+
+console.log("user1of local",user1);
     return (
       <div className='App'>
          <Header/>
 
-{!user11 ? (<Login/>) :(
+{/* {user1?.email? ( */}
   <div className="App-body">
    <Sidebar/>
    <Feed/>
   </div>
- ) }
+ {/* ):(<Login/>) } */}
 </div>
      
  )}

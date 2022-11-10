@@ -14,7 +14,7 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const [Name,setName]=useState('')
-    const [email,setEmail]=useState('')
+    const [Email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [PhotoUrl,setphotoUrl]=useState('')
     const auth = getAuth()
@@ -23,37 +23,43 @@ const Login = () => {
     const [user1,setuser1]=useState({})
 
     
-console.log('users',users);
+
  useEffect(()=>{
        getDocs(col).then((snap)=>{setusers(snap.docs.map((doc)=>(
       {id:doc.id,
-     data:doc.data(),})))})
+      data:doc.data(),})))})
                         
-                        },[])
-
+                       },[])
+                       
+console.log('users',users);
     const LogintoApp=(e)=>{
+   
     e.preventDefault()
 
-     signInWithEmailAndPassword(auth,email,password).then((auther)=>{
-  setuser1(users.find(({email}) => email===email));
+     signInWithEmailAndPassword(auth,Email,password).then((auther)=>{
+     const user2=users.find(({email}) => Email===email);
+      setuser1(user2)
+      console.log('user1user1',user2)
+      localStorage.setItem('user2',JSON.stringify(user2.data));
+  
       dispatch(LoginA({
-      email:user1.data.email,
-      displayName:user1.data.displayName,
-      PhotoUrl:user1.data.photoURL},))
+      email:user2.data.email,
+      displayName:user2.data.displayName,
+      PhotoUrl:user2.data.photoURL},))
       })
-      localStorage.setItem('localuser',user1)
+    
 }
   
 
 const Register=()=>{
-createUserWithEmailAndPassword(auth, email, password).then(
-  updateEmail(auth.currentUser,email),
+createUserWithEmailAndPassword(auth, Email, password).then(
+  updateEmail(auth.currentUser,Email),
   updatePassword(auth.currentUser,password),
   updateProfile(auth.currentUser,{
  displayName:Name,photoURL:PhotoUrl}))
  console.log("user orrororoorooor",auth.currentUser);
-  dispatch(LoginA({displayName:Name,photoURL:PhotoUrl,email:email},
-  addDoc(collection(db,"users"),{displayName:Name,photoURL:PhotoUrl,email:email,time:serverTimestamp()})
+  dispatch(LoginA({displayName:Name,photoURL:PhotoUrl,email:Email},
+  addDoc(collection(db,"users"),{displayName:Name,photoURL:PhotoUrl,email:Email,time:serverTimestamp()})
 ))}
 
   
@@ -66,7 +72,7 @@ createUserWithEmailAndPassword(auth, email, password).then(
      <form action="">
      <input type="text" value={Name} onChange={e=>{setName(e.target.value)}} placeholder='Full name' />
       <input type="text" value={PhotoUrl} onChange={e=>{setphotoUrl(e.target.value)}} placeholder='profil pic'/>
-      <input type="text" value={email}  onChange={e=>{setEmail(e.target.value)}}  placeholder='Email' />
+      <input type="text" value={Email}  onChange={e=>{setEmail(e.target.value)}}  placeholder='Email' />
       <input type="text" value={password}  onChange={e=>{setPassword(e.target.value)}} placeholder='password' />
       <button type='Submit' onClick={LogintoApp}>Submit</button>
 
