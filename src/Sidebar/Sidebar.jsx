@@ -20,7 +20,7 @@ const user1=useSelector(state=>state.userstore.user)
     <div className='sidebar'>
         <div className="sidebar-top">
             <img src={dev} alt="dev"  className='dev-image'/>
-            <img  src={user1?.PhotoUrl}alt="avatar" className='img-avatar'/>
+            <img  src={user1?.photoURL}alt="avatar" className='img-avatar'/>
            <h4>{user1?.displayName}</h4>
            <p>Front-End Developer |<br/> JavaScript | React </p>
        

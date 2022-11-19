@@ -15,6 +15,7 @@ import { collection, getDocs ,addDoc} from "firebase/firestore";
 import {serverTimestamp } from "firebase/firestore";
 import { useDispatch } from 'react-redux'
 import App from '../App'
+import Header from '../header/Header'
 const Feed = () => {
 const dispatch =useDispatch()
   const colRef= collection(db,'posts')
@@ -46,7 +47,8 @@ const sendpost=(e)=>{
 
 
   return (
-    <div className='Feed'>
+    <div className='Feed'> 
+    
         <div className="FeedInputContainer">
         <div className="FeedInputContainer-top">
         <img src={avatar} alt='avatar' className=''/>

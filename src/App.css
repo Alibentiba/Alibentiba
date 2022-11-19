@@ -9,4 +9,20 @@
     padding: 1%;
     width: 100%;
     gap: 1%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.body-App{
+    display: flex;
+    padding: 1%;
+    width: 100%;
+    gap: 1%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+
+
+
 }

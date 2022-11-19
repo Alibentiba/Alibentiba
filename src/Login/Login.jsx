@@ -1,6 +1,6 @@
 import React from 'react'
 import './Login.css'
-import LinkedinLogin from './LinkedinLogin.png'
+// import LinkedinLogin from './LinkedinLogin.png'
 import { useState,useEffect } from 'react'
 import {createUserWithEmailAndPassword,updateEmail,signInWithEmailAndPassword,updateProfile,onAuthStateChanged, updatePassword  } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
@@ -30,23 +30,27 @@ const Login = () => {
       data:doc.data(),})))})
                         
                        },[])
-                       
-console.log('users',users);
+                      var x
     const LogintoApp=(e)=>{
-   
+   console.log('users are les suivent',users)
     e.preventDefault()
+    for (let i = 0; i < users.length; i++) {
+     if(users[1].data.email===Email){
+        x=users[1].data
+        console.log('the user is',x)
+        i=users.length
 
-     signInWithEmailAndPassword(auth,Email,password).then((auther)=>{
-     const user2=users.find(({email}) => Email===email);
-      setuser1(user2)
-      console.log('user1user1',user2)
-      localStorage.setItem('user2',JSON.stringify(user2.data));
-  
-      dispatch(LoginA({
-      email:user2.data.email,
-      displayName:user2.data.displayName,
-      PhotoUrl:user2.data.photoURL},))
-      })
+     }
+    }
+if(x){ 
+  console.log('user of x is',x)
+  signInWithEmailAndPassword(auth,Email,password).then((auther)=>{
+    
+  localStorage.setItem('x',JSON.stringify(x));
+
+  dispatch(LoginA(x))
+  })}
+    
     
 }
   
@@ -68,7 +72,7 @@ createUserWithEmailAndPassword(auth, Email, password).then(
 
   return (
     <div className='Login'>
-     <img src={LinkedinLogin} alt="fdfd" />
+     <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png' alt="fdfd" />
      <form action="">
      <input type="text" value={Name} onChange={e=>{setName(e.target.value)}} placeholder='Full name' />
       <input type="text" value={PhotoUrl} onChange={e=>{setphotoUrl(e.target.value)}} placeholder='profil pic'/>

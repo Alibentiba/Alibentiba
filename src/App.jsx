@@ -9,26 +9,27 @@ import { useSelector } from 'react-redux'
 
 
 function App() {
-const [user1,setuser]=useState(null)
+// const [user1,setuser]=useState(null)
 
-useEffect(() => {
-    const user2 =JSON.parse(localStorage.getItem('user2'));
-   if (user2) {
-   setuser(user2);}
- 
-},[]);
+var user1=useSelector(state=>state.userstore.user)
+
 
 console.log("user1of local",user1);
     return (
       <div className='App'>
-         <Header/>
+         
+         
+ {user1?.email? ( 
 
-{/* {user1?.email? ( */}
+
+<div className='body-App'>
+<Header/>
   <div className="App-body">
+    
    <Sidebar/>
    <Feed/>
-  </div>
- {/* ):(<Login/>) } */}
+  </div></div>
+ ):(<Login/>) } 
 </div>
      
  )}

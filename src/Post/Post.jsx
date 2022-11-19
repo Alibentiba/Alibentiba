@@ -5,13 +5,16 @@ import {SlLike} from 'react-icons/sl'
 import {TfiCommentAlt} from 'react-icons/tfi'
 import {VscLiveShare} from 'react-icons/vsc'
 import {RiSendPlaneFill} from 'react-icons/ri'
+import { useSelector } from 'react-redux';
+
 const Post = ({name,descreption,photoUrl,message}) => {
+  const user1=useSelector(state=>state.userstore.user)
 
     
   return (
     <div className='Post'>
         <div className="Post-info">
-        <img src={photoUrl} alt="" className='Post-info-img' />
+        <img src={user1?.photoURL} alt="" className='Post-info-img' />
          <div className="Post-user-info">
             <h4>{name}</h4>
             <p>{descreption}</p>

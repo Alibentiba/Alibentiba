@@ -11,9 +11,9 @@ const Header = () => {
 const dispatch=useDispatch()
 const logoutApp=()=>{
 dispatch(Logout())  
-localStorage.removeItem('user2')
+localStorage.removeItem('x')
 }
-const user1=useSelector(state=>state.userstore.user)
+var user1=useSelector(state=>state.userstore.user)
   return (
     <div className='header'>
 

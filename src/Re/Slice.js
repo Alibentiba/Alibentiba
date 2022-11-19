@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const Slice = createSlice({
 
     name: "counter",
-    initialState: {feeds:[],user:{email:'',uid:'',displayName:'',PhotoUrl:''}},
+    initialState: {feeds:[],user:null},
    
     reducers: {
           LoginA: (state,action) => {
          state.user=action.payload
         
           },
-          Logout:(state) => {
+          Logout:(state,action) => {
             state.user=null;
           
            
