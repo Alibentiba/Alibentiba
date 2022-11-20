@@ -20,17 +20,18 @@ if(v){
 var user1=useSelector(state=>state.userstore.user)
 console.log("user1of local",user1);
     return (
-      <div className='App'>   
+      <div className='App'>  
+      <Header/> 
  {user1?.email? ( 
 
 
-<div className='body-App'>
-<Header/>
+
+
   <div className="App-body">
     
    <Sidebar/>
    <Feed/>
-  </div></div>
+  </div>
  ):(<Login/>) } 
 </div>
      
