@@ -1,0 +1,100 @@
+.Widgets{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: rgb(255, 255, 255);
+width: 23%;
+border-radius: 10px;
+padding: 1%;
+}
+.Widgets-title{
+
+width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+
+border-radius: 10px;
+
+
+}
+.widgetsProfils{
+/* background-color: aqua; */
+height: 123px;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content:center;
+width: 100%;
+gap: 6%;
+padding: 10px;
+}
+.widgetsProfils-info p{
+font-size: 14px;
+color: rgb(175, 175, 175);
+}
+.widgetsProfils-info-button{
+width: 110px;
+height:35px;
+border-radius: 25px;
+background-color: rgb(255, 255, 255);
+font-size: 16px;
+color: rgb(141, 141, 138);
+font-weight:bold;
+border: solid 1px gray;
+margin-top: 4%;
+cursor: pointer;
+
+}
+.widgetsProfils-info h4{
+   margin-bottom: 1%;
+}
+
+.widgetsProfils-info-img{  
+    border-radius: 50%;
+    width: 45px;
+    display: block;
+    height: 45px;
+    object-fit: cover;
+
+
+}
+    
+   .widgetsProfils-info-img-div{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+height: 100%;
+
+
+   }
+   
+
+
+
+.widgetsProfils-info{
+   height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

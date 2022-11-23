@@ -5,13 +5,16 @@ import {SlLike} from 'react-icons/sl'
 import {TfiCommentAlt} from 'react-icons/tfi'
 import {VscLiveShare} from 'react-icons/vsc'
 import {RiSendPlaneFill} from 'react-icons/ri'
+import { useSelector } from 'react-redux'
 
 const Post =forwardRef(({name,pho,message,timeS},ref) => {
+  const use=useSelector(state=>state.userstore.user)
+
 
   return (
     <div ref={ref} className='Post'>
         <div className="Post-info">
-        <img src={pho} alt="" className='Post-info-img' />
+        <img src={use?.photoURL} alt="" className='Post-info-img' />
          <div className="Post-user-info">
             <h4>{name}</h4>
             <p>{timeS}</p>
@@ -19,7 +22,7 @@ const Post =forwardRef(({name,pho,message,timeS},ref) => {
         </div>
         <div className="Post-body">
          <p>{message}</p>
-         {/* <img src={pho} alt="fgf" /> */}
+         {/* <img src={use?.photoURL} alt="fgf" /> */}
         </div>
         <div className="Post-reaction">
             <InputOption Icon={SlLike} title='Like' color='rgb(118, 118, 117)' />

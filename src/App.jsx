@@ -7,6 +7,7 @@ import Login from './Login/Login'
 import { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {LoginA} from './Re/Slice'
+import Widgets from './Widgets/Widgets'
 
 
 function App() {
@@ -31,6 +32,7 @@ console.log("user1of local",user1);
     
    <Sidebar/>
    <Feed/>
+   <Widgets/>
   </div>
  ):(<Login/>) } 
 </div>

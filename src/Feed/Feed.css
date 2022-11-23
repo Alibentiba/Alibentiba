@@ -1,12 +1,12 @@
 .Feed{
 
     display: flex;
-    width: 40%;
+    width: 50%;
     align-items: center;
     justify-content: flex-start;
    flex-direction: column;
    gap: 10px;
-
+position: sticky;
 }
 .FeedInputContainer-top{
     display: flex;
