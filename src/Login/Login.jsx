@@ -15,7 +15,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const [Name,setName]=useState('')
     const [Email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
+    const [Password,setPassword]=useState('')
     const [PhotoUrl,setphotoUrl]=useState('')
     const auth = getAuth()
      const col= collection(db,'users')
@@ -33,18 +33,23 @@ const Login = () => {
                       var x
     const LogintoApp=(e)=>{
    console.log('users are les suivent',users)
+   console.log('les acce',users[0].data)
+
+
+
     e.preventDefault()
     for (let i = 0; i < users.length; i++) {
-     if(users[1].data.email===Email){
-        x=users[1].data
-        console.log('the user is',x)
+      // var y=users[1].data.email
+     if(users[i].data.email===Email){
+        x=users[i].data
+        console.log('Condition of  X',x)
         i=users.length
 
      }
     }
 if(x){ 
   console.log('user of x is',x)
-  signInWithEmailAndPassword(auth,Email,password).then((auther)=>{
+  signInWithEmailAndPassword(auth,Email,Password).then((auther)=>{
     
   localStorage.setItem('x',JSON.stringify(x));
 
@@ -56,9 +61,9 @@ if(x){
   
 
 const Register=()=>{
-createUserWithEmailAndPassword(auth, Email, password).then(
+createUserWithEmailAndPassword(auth, Email, Password).then(
   updateEmail(auth.currentUser,Email),
-  updatePassword(auth.currentUser,password),
+  updatePassword(auth.currentUser,Password),
   updateProfile(auth.currentUser,{
  displayName:Name,photoURL:PhotoUrl}))
  console.log("user orrororoorooor",auth.currentUser);
@@ -77,7 +82,7 @@ createUserWithEmailAndPassword(auth, Email, password).then(
      <input type="text" value={Name} onChange={e=>{setName(e.target.value)}} placeholder='Full name' />
       <input type="text" value={PhotoUrl} onChange={e=>{setphotoUrl(e.target.value)}} placeholder='profil pic'/>
       <input type="text" value={Email}  onChange={e=>{setEmail(e.target.value)}}  placeholder='Email' />
-      <input type="text" value={password}  onChange={e=>{setPassword(e.target.value)}} placeholder='password' />
+      <input type="text" value={Password}  onChange={e=>{setPassword(e.target.value)}} placeholder='password' />
       <button type='Submit' onClick={LogintoApp}>Submit</button>
 
 
