@@ -1,5 +1,4 @@
 import React from 'react'
-import avatar from '../header/avatar.jpg'
 import './Sidebar.css'
 import dev from './dev.jpg'
 import {FaBookmark} from "react-icons/fa";
@@ -7,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 
 const Sidebar = () => {
-const user1=useSelector(state=>state.userstore.user)
+const user1=useSelector(state=>state.userStore.user)
     const recent=(topic)=>{
      return(<div className="recent-item">
           <span className="item">

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const Slice = createSlice({
 
-    name: "counter",
-    initialState: {feeds:[],user:null},
+    name: "userStore",
+    initialState: {feeds:[],user:null},ModelState:false,
    
     reducers: {
           LoginA: (state,action) => {
@@ -23,9 +23,14 @@ export const Slice = createSlice({
             state.feeds=x.push(action.payload)
             // return state.feeds
            },
+           modelOPen:(state, action) => {
+            state.ModelState=action.payload
+             
+            },
+           
           
 
     }
 })
-export const {LoginA,Logout,fetchTostat,sendpostostate} = Slice.actions
+export const {LoginA,Logout,fetchTostat,sendpostostate,modelOPen} = Slice.actions
 export default Slice.reducer

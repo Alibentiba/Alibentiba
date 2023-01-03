@@ -16,10 +16,8 @@ useEffect(()=>{
   const v = JSON.parse(localStorage.getItem('x'));
 if(v){
   dispatch(LoginA(v))
-  console.log('dsfsdfsfsd',v)
 }},[])
-var user1=useSelector(state=>state.userstore.user)
-console.log("user1of local",user1);
+var user1=useSelector(state=>state.userStore.user)
     return (
       <div className='App'>  
       <Header/> 

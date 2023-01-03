@@ -13,7 +13,7 @@ const logoutApp=()=>{
 dispatch(Logout())  
 localStorage.removeItem('x')
 }
-var user1=useSelector(state=>state.userstore.user)
+var user1=useSelector(state=>state.userStore.user)
   return (
     <div className='header'>
 

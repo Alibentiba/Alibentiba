@@ -6,7 +6,7 @@ import {createUserWithEmailAndPassword,updateEmail,signInWithEmailAndPassword,up
 import { useDispatch } from 'react-redux'
 import {LoginA} from '../Re/Slice'
 import { getAuth} from "firebase/auth";
-import db from "../firebaseConfig";
+import{ db }from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
 import {serverTimestamp } from "firebase/firestore";
 
@@ -32,8 +32,7 @@ const Login = () => {
                        },[])
                       var x
     const LogintoApp=(e)=>{
-   console.log('users are les suivent',users)
-   console.log('les acce',users[0].data)
+   
 
 
 
@@ -59,22 +58,16 @@ if(x){
     
 }
   
-
 const Register=()=>{
 createUserWithEmailAndPassword(auth, Email, Password).then(
   updateEmail(auth.currentUser,Email),
   updatePassword(auth.currentUser,Password),
   updateProfile(auth.currentUser,{
  displayName:Name,photoURL:PhotoUrl}))
- console.log("user orrororoorooor",auth.currentUser);
   dispatch(LoginA({displayName:Name,photoURL:PhotoUrl,email:Email},
   addDoc(collection(db,"users"),{displayName:Name,photoURL:PhotoUrl,email:Email,time:serverTimestamp()})
 ))}
-
-  
-
-       
-
+      
   return (
     <div className='Login'>
      <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png' alt="fdfd" />

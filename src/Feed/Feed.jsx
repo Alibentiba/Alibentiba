@@ -7,58 +7,51 @@ import {BsFillImageFill,BsFillCalendarEventFill, BsXCircle, BsForward} from 'rea
 import {RiVideoLine,RiArticleFill} from 'react-icons/ri'
 import avatar from '../header/avatar.jpg'
 import './Feed.css'
-import {fetchTostat, sendpostostate } from '../Re/Slice'
+import {fetchTostat} from '../Re/Slice'
 import Post from '../Post/Post'
 import { useEffect } from 'react'
-import db from "../firebaseConfig";
+import {db} from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
-import {serverTimestamp } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux'
 import FlipMove from 'react-flip-move'
+import Model from '../Modal/Model'
+import {modelOPen} from '../Re/Slice'
+
 
 const Feed = () => {
+  const model1=useSelector(state=>state.userStore.ModelState)
+
   const dispatch =useDispatch()
   const colRef= collection(db,'posts')
-  const [input,setinput]=useState('')
-  const [posts,setposts]=useState([])
-  const use=useSelector(state=>state.userstore.user)
-  var d = new Date("2022-03-25");
-   let dat = d.toString().slice(0,25);
-
+  const [posts,setposts]=useState(null)
+  const use=useSelector(state=>state.userStore.user)
 
 useEffect(()=>{
 getDocs(colRef).then((snap)=>{setposts(snap.docs.map((doc)=>(
 {id:doc.id,
 data:doc.data()})))
     })
-},[input])
-   dispatch(fetchTostat(posts))
+    dispatch(fetchTostat(posts))
+},[model1])
+
+
    
-const sendpost=(e)=>{
-  e.preventDefault();
- addDoc(collection(db,"posts"),{
-    name:"Ali bentiba",
-    photoUrl:'',
-    message:input,
-    timeS:dat
-   })
-    setinput('')
-  
+const handelModel=()=>{
+  dispatch(modelOPen(!model1))
 }
- console.log('posts',posts)
 
   return (
-    <div className='Feed'> 
-    
+    <div className='Feed'>
+        <Model/> 
         <div className="FeedInputContainer">
         <div className="FeedInputContainer-top">
         <img src={use?.photoURL} alt='avatar' className=''/>
-           <div className="FeedInput">
-            <FaRegEdit className='FaRegEdit'/>
-            <form action="" className='FeedForm'>
-            <input onChange={e=>setinput(e.target.value)} value={input} type="text" placeholder='Start a Post' />
-            <button type='submit' onClick={sendpost}>Send</button>
-             </form>
+           <div className="FeedInput" onClick={handelModel} >
+            <FaRegEdit className='FaRegEdit'   />
+            <div  className='FeedForm'>
+           
+             </div> 
+            
            </div>
            </div>
 
@@ -71,7 +64,8 @@ const sendpost=(e)=>{
 
 
         </div>
-         
+      
+
          
           
         <div className="Posts">
@@ -79,13 +73,14 @@ const sendpost=(e)=>{
 
        <FlipMove>
 
-           {posts?.map(({id,data:{name,pho,message,timeS}})=>(
+           {posts?.map(({id,data:{name,pho,message,timeS,image}})=>(
            <Post 
            key={id}
            name={name}
            timeS={timeS}
             pho={avatar} 
            message={message}
+           image={image}
 
           />))
             }  
@@ -94,7 +89,7 @@ const sendpost=(e)=>{
             
    
             </div>
-        
+          
         
     </div>
   )}

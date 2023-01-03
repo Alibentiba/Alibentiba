@@ -7,8 +7,8 @@ import {VscLiveShare} from 'react-icons/vsc'
 import {RiSendPlaneFill} from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 
-const Post =forwardRef(({name,pho,message,timeS},ref) => {
-  const use=useSelector(state=>state.userstore.user)
+const Post =forwardRef(({name,pho,message,timeS,image},ref) => {
+  const use=useSelector(state=>state.userStore.user)
 
 
   return (
@@ -22,7 +22,7 @@ const Post =forwardRef(({name,pho,message,timeS},ref) => {
         </div>
         <div className="Post-body">
          <p>{message}</p>
-         {/* <img src={use?.photoURL} alt="fgf" /> */}
+         {image&& <img src={image} alt="fgf" className='image-post-pub' />}
         </div>
         <div className="Post-reaction">
             <InputOption Icon={SlLike} title='Like' color='rgb(118, 118, 117)' />
