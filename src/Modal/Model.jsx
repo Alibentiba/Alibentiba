@@ -9,6 +9,9 @@ import {modelOPen} from '../Re/Slice'
 import { BsImageFill } from 'react-icons/bs';
 import { AiFillYoutube } from 'react-icons/ai';
 import { RiRedPacketFill } from 'react-icons/ri';
+import {deleteObject,getDownloadURL,ref,uploadBytesResumable,} from "firebase/storage";
+import { storage,db } from "../firebaseConfig";
+import { collection ,addDoc} from "firebase/firestore"; 
 
 
 const style = {
@@ -25,6 +28,67 @@ const style = {
 
 
 const  Modal1=()=> {
+
+  const [inputmsg, setinputmsg] = useState('');
+    const [category, setcategorie] = useState();
+    const [isLaoding, setisLaoding] = useState(false);
+    const [imageAsset, setimageAsset] = useState(null);
+    const [calories, setcalories] = useState('');
+    const [price, setprice] = useState('');
+  
+ 
+     const uploadImage = (e) => {
+     const imageFile = e.target.files[0];
+     const storageRef = ref(storage, `images/${Math.floor(Math.random() * 100)}-${imageFile.name}`);
+     const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const uploadProgress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setisLaoding(!isLaoding)
+
+      },
+      (error) => {
+        console.log(error);
+    
+        setTimeout(4000);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setimageAsset(downloadURL);
+          if(imageAsset){setisLaoding(false)}
+
+          setTimeout(() => 4000);
+      
+          
+        });
+      }
+    );
+  };
+                var d = new Date("2022-03-25");
+                let dat = d.toString().slice(0,25);
+                const sendpost=(e)=>{
+                  e.preventDefault();
+                 addDoc(collection(db,"posts"),{
+                    name:"Ali bentiba",
+                    photoUrl:'',
+                    message:inputmsg,
+                    timeS:dat,
+                    image:imageAsset
+                   })
+                    setinputmsg('')
+                    dispatch(modelOPen(!model1))
+                    setimageAsset(null)
+
+                }
+
+
+
+
+
+      
+
   const dispatch =useDispatch()
   const [open, setOpen] = useState(null);
   // redux 
@@ -75,7 +139,8 @@ const  Modal1=()=> {
               width:'35px',
               height:'35px',
               borderRadius:'50%',
-              backgroundColor:'green',
+              fontSize:'28px',
+           
             
             color:'black'
           }}
@@ -99,13 +164,15 @@ const  Modal1=()=> {
 
 
  </Box>
- <Box style={{width:'100%',height:'220px'}}>
-<input type="text" placeholder='What do you want to talk about?' 
-style={{width:'100%',border:'none', fontSize:'18px',outline:'none'}}/>
+ <Box 
+ style={{width:'100%',height:'220px',display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'space-between'}}>
 
-
-
-
+<form action="" >
+ <input 
+ style={{width:'300px',border:'none', fontSize:'18px',outline:'none'}}
+ onChange={e=>setinputmsg(e.target.value)} value={inputmsg} type="text" placeholder='What do you want to talk about?' />        
+  </form>
+{imageAsset&& <img src={imageAsset} alt="fdg" style={{width:"100%",height:'180px',objectFit:'cover'}} /> }
  </Box>
 
  {/* Bottom */}
@@ -117,15 +184,31 @@ style={{width:'100%',border:'none', fontSize:'18px',outline:'none'}}/>
 
 
        <Box style={{display:'flex',flexDirection:'row',alignItems:'flex-start',fontSize:"26px",gap:'15px',color:'gray'}}>
-         <BsImageFill style={{cursor:'pointer'}}/>
+       
+         <label>  
+                   <BsImageFill style={{cursor:'pointer'}}/>
+                    <input type="file"
+                    name='uplaodimg'
+                    accept='image/*'
+                    onChange={uploadImage}
+                   style={{width:'0'}}/>
+               </label>
+
+
+
+
+
+
          <AiFillYoutube style={{cursor:'pointer'}}/>
          <IoDocumentText style={{cursor:'pointer'}}/>
          <RiRedPacketFill style={{cursor:'pointer'}}/>
      </Box>
 
           <button
-          disabled 
-          style={{width:"60px",borderRadius:'50px',height:'30px',fontWeight:'600',cursor:'pointer' }}
+          disabled={!imageAsset && inputmsg===''}
+           onClick={sendpost}
+          style={{width:"70px",borderRadius:'50px',height:'35px',fontWeight:'600',cursor:'pointer'
+         ,backgroundColor:'rgb(4, 113, 175)',border:'none',color:'white',fontSize:'18px' }}
           >Post</button>
   
         </Box>

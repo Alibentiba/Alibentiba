@@ -47,9 +47,10 @@ const handelModel=()=>{
         <div className="FeedInputContainer-top">
         <img src={use?.photoURL} alt='avatar'/>
            <div className="FeedInput" onClick={handelModel} >
-            <FaRegEdit className='FaRegEdit'   />
-            <div  className='FeedForm'>
-             </div> 
+
+        
+              <p>Start a Post</p>
+            
             
            </div>
            </div>
