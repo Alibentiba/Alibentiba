@@ -14,8 +14,8 @@ import {db} from "../firebaseConfig";
 import { collection, getDocs ,addDoc} from "firebase/firestore"; 
 import { useDispatch, useSelector } from 'react-redux'
 import FlipMove from 'react-flip-move'
-import Model from '../Modal/Model'
 import {modelOPen} from '../Re/Slice'
+import Modal1 from '../Modal/Model'
 
 
 const Feed = () => {
@@ -34,7 +34,7 @@ data:doc.data()})))
     dispatch(fetchTostat(posts))
 },[model1])
 
-
+console.log('the user is',use)
    
 const handelModel=()=>{
   dispatch(modelOPen(!model1))
@@ -42,14 +42,13 @@ const handelModel=()=>{
 
   return (
     <div className='Feed'>
-        <Model/> 
+        <Modal1/> 
         <div className="FeedInputContainer">
         <div className="FeedInputContainer-top">
-        <img src={use?.photoURL} alt='avatar' className=''/>
+        <img src={use?.photoURL} alt='avatar'/>
            <div className="FeedInput" onClick={handelModel} >
             <FaRegEdit className='FaRegEdit'   />
             <div  className='FeedForm'>
-           
              </div> 
             
            </div>

@@ -1,113 +1,137 @@
-import React, { useState } from 'react'
-import { useSelector,useDispatch } from 'react-redux'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { IoClose ,IoDocumentText} from 'react-icons/io5';
 import {modelOPen} from '../Re/Slice'
-import './Modal.css'
-import {db,storage} from "../firebaseConfig";
-import { collection, getDocs ,addDoc} from "firebase/firestore";
-import {deleteObject,getDownloadURL,ref,uploadBytesResumable,} from "firebase/storage";
-import { IoMdClose } from 'react-icons/io';
-
-const Model = () => {
-  const modalstate =useSelector(state=>state.userStore.ModelState)
-  const dispatch = useDispatch()
-  const [imageAsset, setimageAsset] =useState(null);
-  const [input,setinput]=useState('')
-
-  const uploadImage = (e) => {
-    const imageFile = e.target.files[0];
-    const storageRef = ref(storage, `images/${Math.floor(Math.random() * 100)}-${imageFile?.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
-     uploadTask.on(
-     "state_changed",
-     (snapshot) => {
-       const uploadProgress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-     },
-     (error) => {
-       console.log(error);
-   
-       setTimeout(4000);
-     },
-     () => {
-       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-         setimageAsset(downloadURL);
-         setTimeout(() => 4000);
-     
-       });
-     }
-   );
- };
+import { BsImageFill } from 'react-icons/bs';
+import { AiFillYoutube } from 'react-icons/ai';
+import { RiRedPacketFill } from 'react-icons/ri';
 
 
+const style = {
+  position: 'absolute',
+  top: '30%',
+  left: '50%',
+  
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+ 
+  p: 3,
+};
 
 
+const  Modal1=()=> {
+  const dispatch =useDispatch()
+  const [open, setOpen] = useState(null);
+  // redux 
+  const model1=useSelector(state=>state.userStore.ModelState)
+  const use=useSelector(state=>state.userStore.user)
 
-
-
-
-
-
-
-
-  var d = new Date("2022-03-25");
-  let dat = d.toString().slice(0,25);
-  const sendpost=(e)=>{
-    e.preventDefault();
-   addDoc(collection(db,"posts"),{
-      name:"Ali bentiba",
-      photoUrl:'',
-      message:input,
-      timeS:dat,
-      image:imageAsset
-     })
-      setinput('')
-    console.log('imge ',imageAsset)
-  }
-
-
-
-
+ 
+  const handleClose = () => {
+    dispatch(modelOPen(!model1))
+  };
 
   return (
-    <div className='Modal' style={{display:`${modalstate? 'flex' : 'none'}`}}>
-      <div className='Modal-Top'>
-        <p>Create a post  </p>
-        <IoMdClose style={{cursor:'pointer'}} onClick={()=>{dispatch(modelOPen(!modalstate))}}/>
-        </div>
-        <img src="" alt="" />
-        <div>
-          <p>userName</p>
-          <button>Anyone</button>
-        </div>
-        <input type="text" />
-
-
-
-
-
-
-      <form>
-            <input onChange={e=>setinput(e.target.value)} value={input} type="text" placeholder='Start a Post' />
-              <button type='submit' onClick={sendpost}>Send</button>
+    <div>
+      <Modal
+        open={model1}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, 
+        display:'flex',
+        flexDirection:"column" ,
+        gap:'15px',
+        border:'none',
+        borderRadius:'10px',
+        outline:'none'
+        ,
+       
+        width:600 }}>
+{/* Top div */}
+          <Box  
+          style={{
+            width:'100%',
+            height:"50px",
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-between',
+            alignItems:'center',
+            fontSize:'20px',
+            fontWeight:'500',
+            borderBottom:'solid 1px gray'
             
+        }}
+        >
+            <p>Create a post</p>
+            <Button 
+            style={{
+              width:'35px',
+              height:'35px',
+              borderRadius:'50%',
+              backgroundColor:'green',
             
-                   <div >
-                    <p className='text-gray-600 text-xl'>Click To uplaod img</p>
-                     </div>
-
-                    <input type="file"
-                    name='uplaodimg'
-                    accept='image/*'
-                    onChange={uploadImage}
-                    className='w-0 h-0'/>
-
-               {imageAsset && <img src={imageAsset} alt="fdgfdg"/> }   
-              <button >close</button>
+            color:'black'
+          }}
+            onClick={handleClose}><IoClose/></Button>
 
 
+          </Box>
 
-               </form>    
- </div>
-  )
+ {/* Center div */}
+ <Box style={{display:'flex',flexDirection:'row',gap:"10px" ,alignItems:'center'}}>
+ <img src={use?.photoURL} alt='avatar'
+  style={{width:'60px',height:'60px',borderRadius:"100%"}} />
+  <Box >
+  <p style={{fontSize:'20px',fontWeight:"500"}}>{use?.displayName}</p>
+  <button 
+  style={{width:"90px",height:'35px',borderRadius:'50px',border:'none',fontSize:'18px'}}>
+    Anyone</button>
+  </Box>
+
+
+
+
+ </Box>
+ <Box style={{width:'100%',height:'220px'}}>
+<input type="text" placeholder='What do you want to talk about?' 
+style={{width:'100%',border:'none', fontSize:'18px',outline:'none'}}/>
+
+
+
+
+ </Box>
+
+ {/* Bottom */}
+
+ <Box style={{
+  display:'flex',flexDirection:'row',alignItems:'flex-start',justifyContent:'space-between',
+  width:"100%"}}>
+
+
+
+       <Box style={{display:'flex',flexDirection:'row',alignItems:'flex-start',fontSize:"26px",gap:'15px',color:'gray'}}>
+         <BsImageFill style={{cursor:'pointer'}}/>
+         <AiFillYoutube style={{cursor:'pointer'}}/>
+         <IoDocumentText style={{cursor:'pointer'}}/>
+         <RiRedPacketFill style={{cursor:'pointer'}}/>
+     </Box>
+
+          <button
+          disabled 
+          style={{width:"60px",borderRadius:'50px',height:'30px',fontWeight:'600',cursor:'pointer' }}
+          >Post</button>
+  
+        </Box>
+        </Box>
+      </Modal>
+    </div>
+  );
 }
-
-export default Model
+export default Modal1
