@@ -33,6 +33,8 @@ var user1=useSelector(state=>state.userStore.user)
    <Widgets/>
   </div>
  ):(<Login/>) } 
+ 
+
 </div>
      
  )}

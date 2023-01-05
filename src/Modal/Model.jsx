@@ -12,11 +12,13 @@ import { RiRedPacketFill } from 'react-icons/ri';
 import {deleteObject,getDownloadURL,ref,uploadBytesResumable,} from "firebase/storage";
 import { storage,db } from "../firebaseConfig";
 import { collection ,addDoc} from "firebase/firestore"; 
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 const style = {
   position: 'absolute',
-  top: '30%',
+  top: '40%',
   left: '50%',
   
   transform: 'translate(-50%, -50%)',
@@ -30,13 +32,9 @@ const style = {
 const  Modal1=()=> {
 
   const [inputmsg, setinputmsg] = useState('');
-    const [category, setcategorie] = useState();
-    const [isLaoding, setisLaoding] = useState(false);
-    const [imageAsset, setimageAsset] = useState(null);
-    const [calories, setcalories] = useState('');
-    const [price, setprice] = useState('');
-  
- 
+    const [fileAsset, setfileAsset] = useState(null);
+    const [Extension, setExtension] = useState(null);
+
      const uploadImage = (e) => {
      const imageFile = e.target.files[0];
      const storageRef = ref(storage, `images/${Math.floor(Math.random() * 100)}-${imageFile.name}`);
@@ -46,7 +44,6 @@ const  Modal1=()=> {
       "state_changed",
       (snapshot) => {
         const uploadProgress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setisLaoding(!isLaoding)
 
       },
       (error) => {
@@ -56,8 +53,7 @@ const  Modal1=()=> {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setimageAsset(downloadURL);
-          if(imageAsset){setisLaoding(false)}
+          setfileAsset(downloadURL);
 
           setTimeout(() => 4000);
       
@@ -75,35 +71,36 @@ const  Modal1=()=> {
                     photoUrl:'',
                     message:inputmsg,
                     timeS:dat,
-                    image:imageAsset
+                    file:fileAsset,
+                    Extension:Extension
                    })
                     setinputmsg('')
-                    dispatch(modelOPen(!model1))
-                    setimageAsset(null)
+                    dispatch(modelOPen(!open))
+                    setfileAsset(null)
 
                 }
 
 
 
-
+                const top100Films = [
+                  { label: 'TheALL', year: 1994 },
+                  { label: 'father', year: 1972 },
+                  { label: 'TGod', year: 1974 }]
 
       
 
   const dispatch =useDispatch()
-  const [open, setOpen] = useState(null);
   // redux 
-  const model1=useSelector(state=>state.userStore.ModelState)
-  const use=useSelector(state=>state.userStore.user)
-
- 
+  const open=useSelector(state=>state.userStore.ModelState)
+  const use=useSelector(state=>state.userStore.user) 
   const handleClose = () => {
-    dispatch(modelOPen(!model1))
+    dispatch(modelOPen(!open))
   };
 
   return (
     <div>
       <Modal
-        open={model1}
+        open={open}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
@@ -155,9 +152,23 @@ const  Modal1=()=> {
   style={{width:'60px',height:'60px',borderRadius:"100%"}} />
   <Box >
   <p style={{fontSize:'20px',fontWeight:"500"}}>{use?.displayName}</p>
-  <button 
-  style={{width:"90px",height:'35px',borderRadius:'50px',border:'none',fontSize:'18px'}}>
-    Anyone</button>
+  
+
+ 
+    <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={top100Films}
+      sx={{ width:150,
+      
+       '& .MuiOutlinedInput-root':{  borderRadius: '50px'}
+      
+      
+      }}
+      style={{borderRadius:'50px'}}
+      renderInput={(params) => <TextField {...params} label="viewers" />}
+    />
+
   </Box>
 
 
@@ -172,7 +183,28 @@ const  Modal1=()=> {
  style={{width:'300px',border:'none', fontSize:'18px',outline:'none'}}
  onChange={e=>setinputmsg(e.target.value)} value={inputmsg} type="text" placeholder='What do you want to talk about?' />        
   </form>
-{imageAsset&& <img src={imageAsset} alt="fdg" style={{width:"100%",height:'180px',objectFit:'cover'}} /> }
+
+
+
+{fileAsset?
+<>  {Extension==='vidio' ? 
+          // <ReactPlayer url={file} className='image-post-pub' />
+       
+          <video width="100%" height="100%" controls>
+              <source src={fileAsset} type="video/mp4"/>
+                <source src={fileAsset} type="video/ogg"/>
+                </video>
+               
+           
+          
+       : 
+       <img src={fileAsset} alt="fgf" className='image-post-pub' />
+       }
+</>:
+<p></p>
+
+}
+
  </Box>
 
  {/* Bottom */}
@@ -185,11 +217,22 @@ const  Modal1=()=> {
 
        <Box style={{display:'flex',flexDirection:'row',alignItems:'flex-start',fontSize:"26px",gap:'15px',color:'gray'}}>
        
-         <label>  
+         <label onClick={()=>{setExtension('img')}}>  
                    <BsImageFill style={{cursor:'pointer'}}/>
                     <input type="file"
                     name='uplaodimg'
                     accept='image/*'
+                    onChange={ uploadImage}
+                       
+               
+                   style={{width:'0'}}/>
+               </label>
+               
+               <label onClick={()=>{setExtension('vidio')}}> 
+                   <AiFillYoutube style={{cursor:'pointer'}}/>
+                    <input type="file"
+                    name='uplaodimg'
+                    accept='vidio/*'
                     onChange={uploadImage}
                    style={{width:'0'}}/>
                </label>
@@ -199,13 +242,16 @@ const  Modal1=()=> {
 
 
 
-         <AiFillYoutube style={{cursor:'pointer'}}/>
+
+
+
+
          <IoDocumentText style={{cursor:'pointer'}}/>
          <RiRedPacketFill style={{cursor:'pointer'}}/>
      </Box>
 
           <button
-          disabled={!imageAsset && inputmsg===''}
+          disabled={!fileAsset && inputmsg===''}
            onClick={sendpost}
           style={{width:"70px",borderRadius:'50px',height:'35px',fontWeight:'600',cursor:'pointer'
          ,backgroundColor:'rgb(4, 113, 175)',border:'none',color:'white',fontSize:'18px' }}

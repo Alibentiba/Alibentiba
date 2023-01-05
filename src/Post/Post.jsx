@@ -7,7 +7,7 @@ import {VscLiveShare} from 'react-icons/vsc'
 import {RiSendPlaneFill} from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 
-const Post =forwardRef(({name,pho,message,timeS,image},ref) => {
+const Post =forwardRef(({name,pho,message,timeS,file,Extension},ref) => {
   const use=useSelector(state=>state.userStore.user)
 
 
@@ -22,7 +22,23 @@ const Post =forwardRef(({name,pho,message,timeS,image},ref) => {
         </div>
         <div className="Post-body">
          <p>{message}</p>
-         {image&& <img src={image} alt="fgf" className='image-post-pub' />}
+          
+
+         {Extension==='vidio' ? 
+          // <ReactPlayer url={file} className='image-post-pub' />
+       
+          <video width="100%" height="100%" controls preload='auto' style={{borderRadius:'10px'}}>
+              <source src={file} type="video/mp4"/>
+                <source src={file} type="video/ogg"/>
+                </video>
+               
+           
+          
+       : 
+       <img src={file} alt="fgf" className='image-post-pub' />
+       }
+
+
         </div>
         <div className="Post-reaction">
             <InputOption Icon={SlLike} title='Like' color='rgb(118, 118, 117)' />

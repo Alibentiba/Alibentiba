@@ -69,23 +69,19 @@ const handelModel=()=>{
          
           
         <div className="Posts">
-
-
-       <FlipMove>
-
-           {posts?.map(({id,data:{name,pho,message,timeS,image}})=>(
+           {posts?.map(({id,data:{name,pho,message,timeS,file,Extension}})=>(
            <Post 
            key={id}
            name={name}
            timeS={timeS}
             pho={avatar} 
            message={message}
-           image={image}
-
-          />))
+           file={file}
+           Extension={Extension}
+           />))
             }  
               
-            </FlipMove> 
+  
             
    
             </div>

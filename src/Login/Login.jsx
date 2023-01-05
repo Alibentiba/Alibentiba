@@ -20,7 +20,7 @@ const Login = () => {
     const auth = getAuth()
      const col= collection(db,'users')
      const [users,setusers]=useState([])
-    const [user1,setuser1]=useState({})
+    const [user1,setuser1]=useState(null)
 
     
 
@@ -30,18 +30,13 @@ const Login = () => {
       data:doc.data(),})))})
                         
                        },[])
-                      var x
+                     
     const LogintoApp=(e)=>{
-   
-
-
-
+      var x
     e.preventDefault()
     for (let i = 0; i < users.length; i++) {
-      // var y=users[1].data.email
      if(users[i].data.email===Email){
         x=users[i].data
-        console.log('Condition of  X',x)
         i=users.length
 
      }
