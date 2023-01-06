@@ -25,7 +25,6 @@ const Post =forwardRef(({name,pho,message,timeS,file,Extension},ref) => {
           
 
          {Extension==='vidio' ? 
-          // <ReactPlayer url={file} className='image-post-pub' />
        
           <video width="100%" height="100%" controls preload='auto' style={{borderRadius:'10px'}}>
               <source src={file} type="video/mp4"/>

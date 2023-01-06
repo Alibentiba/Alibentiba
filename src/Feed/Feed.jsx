@@ -85,7 +85,7 @@ const handelModel=()=>{
             
    
             </div>
-          
+         
         
     </div>
   )}

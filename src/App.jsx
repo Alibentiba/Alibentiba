@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {LoginA} from './Re/Slice'
 import Widgets from './Widgets/Widgets'
 
-
 function App() {
   const dispatch=useDispatch()
 useEffect(()=>{

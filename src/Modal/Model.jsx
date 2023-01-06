@@ -29,7 +29,7 @@ const style = {
 };
 
 
-const  Modal1=()=> {
+const Modal1 =()=>{
 
   const [inputmsg, setinputmsg] = useState('');
     const [fileAsset, setfileAsset] = useState(null);
@@ -75,7 +75,7 @@ const  Modal1=()=> {
                     Extension:Extension
                    })
                     setinputmsg('')
-                    dispatch(modelOPen(!open))
+                    dispatch(modelOPen(false))
                     setfileAsset(null)
 
                 }
@@ -91,16 +91,17 @@ const  Modal1=()=> {
 
   const dispatch =useDispatch()
   // redux 
-  const open=useSelector(state=>state.userStore.ModelState)
-  const use=useSelector(state=>state.userStore.user) 
+  const ope=useSelector(state=>state.userStore.ModelState)
+  const use=useSelector(state=>state.userStore.user)
   const handleClose = () => {
-    dispatch(modelOPen(!open))
+    dispatch(modelOPen(false))
   };
 
   return (
     <div>
       <Modal
-        open={open}
+     
+        open={ope}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
@@ -190,7 +191,7 @@ const  Modal1=()=> {
 <>  {Extension==='vidio' ? 
           // <ReactPlayer url={file} className='image-post-pub' />
        
-          <video width="100%" height="100%" controls>
+          <video width="90%" height="90%" controls>
               <source src={fileAsset} type="video/mp4"/>
                 <source src={fileAsset} type="video/ogg"/>
                 </video>
